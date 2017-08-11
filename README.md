@@ -1,4 +1,3 @@
 # Sistema de gestão comercial
-## License
+Utlizando fullcalendar.js php+mysql
 
-MIT
