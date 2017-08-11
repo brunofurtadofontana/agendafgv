@@ -1,0 +1,6 @@
+ALTER TABLE rotinainterna
+ADD CONSTRAINT FK_teste
+    FOREIGN KEY (events_id)
+    REFERENCES events(id)
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+
