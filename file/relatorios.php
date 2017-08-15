@@ -23,6 +23,7 @@ require_once('file/conexao.php');
 <html>
 <head>
 	<title>Gestão de Clientes</title>
+	<meta charset="utf-8">
 	<style type="text/css">
 		#COMBOCID option{
     		
@@ -63,7 +64,7 @@ require_once('file/conexao.php');
 	<td><label>Tipo de Atividade</label></td>
 	<td>
 		<select name="Distrito" size="1" width="180" class="COMBODISTCSS form-control" id="COMBOFAB" tabindex="1">
-		    <option value="Indiferente">Escolha uma Atividade</option>
+		    <option value="0">Escolha uma Atividade</option>
 		    <option value="interna">Atividade Interna</option>
 		    <option value="externa">Atividade Externa</option>
 		    <option value="estrategia">Estratégia</option>
@@ -117,12 +118,12 @@ require_once('file/conexao.php');
 	
 	if( $_SERVER['REQUEST_METHOD']=='POST' ){
 		$nome = $_POST['funcionario'];
-		$atividade = $_POST['atividade'];
-		$atividade = "Atividade " .$atividade;
+		$atividade = $_POST['Distrito'];
+		//$atividade = "Atividade " .$atividade;
 		$subatividade = $_POST['subatividade'];
 		$start = $_POST['start'];
 		$end = $_POST['end'];
-		$entre = " between ".$start." AND ". $end;
+		$entre = $start." AND ". $end;
 		if($atividade == "interna"){
 			$result = mysql_query("select * from events join categoria where categoria_categoria_id = categoria_id AND categoria_nome = $atividade");
 		}else if($atividade == "externa"){
@@ -131,15 +132,15 @@ require_once('file/conexao.php');
 			$result = mysql_query("select * from events join categoria where categoria_categoria_id = categoria_id AND categoria_nome = $atividade");
 		}
 		if( $nome ){ $where[] = " nome = '{$nome}'"; }
-		//if( $atividade ){ $where[] = " title = '{$atividade}'"; }
+		if( $atividade ){ $where[] = " categoria_nome = '{$atividade}'"; }
 		
-		//if( $entre ){ $where[] = " e.start = '{$entre}'"; }
-		//if( $entre ){ $where[] = " e.end = '{$entre}'"; }
+		if( $entre ){ $where[] = " (start between '{$start}' AND '{$end}')"; }
+		if( $entre ){ $where[] = " (end between '{$start}' AND '{$end}')"; }
 		//if( $end ){ $where[] = " end = '{$end}'"; }
 		$sql .= ' WHERE '.implode( ' AND ',$where);
 		echo $sql;
 		
-			$result =" SELECT *FROM usuarios JOIN events  JOIN categoria ". $sql." AND idusuarios = usuarios_idusuarios AND categoria_id = categoria_categoria_id";
+			$result =" SELECT *FROM usuarios JOIN events  JOIN categoria ". $sql." AND idusuarios = usuarios_idusuarios AND categoria_id = categoria_categoria_id ORDER BY start ASC";
 			$res = mysql_query($result);
 			$query = utf8_encode($result);
 			if(mysql_num_rows($res) == 0){
@@ -151,6 +152,8 @@ require_once('file/conexao.php');
 					<th style="text-align:center;">Nome</th>
 					<th style="text-align:center;">Título Atividades</th>
 					<th style="text-align:center;" >Tipo Atividades</th>
+					<th style="text-align:center;" >Inicio</th>
+					<th style="text-align:center;" >Fim</th>
 					<th style="text-align:center;">Ação</th>
 				</tr>
 
@@ -159,9 +162,11 @@ require_once('file/conexao.php');
 					$nome = $mostrar['nome'];
 					$title = $mostrar['title'];
 					$cat = $mostrar['categoria_nome'];
-					if($cat == "Atividade interna"){
+					$inicio = $mostrar['start'];
+					$fim = $mostrar['end'];
+					if($cat == "interna"){
 						$cate = $cat;
-					}else if( $cat == "Atividade Externa"){
+					}else if( $cat == "Externa"){
 						$cate = $cat;
 					}else if($cat == "Estrategia"){
 						$cate = $cat;
@@ -173,6 +178,8 @@ require_once('file/conexao.php');
 					<th > <?php echo $nome; ?> </th>
 					<th > <?php echo $title; ?> </th> 
 					<th > <?php echo $cate; ?> </th>
+					<th > <?php echo $inicio; ?> </th>
+					<th > <?php echo $fim; ?> </th>
 			 		<th style="text-align:center;">
 			 			<a href="home.php?go=editCursos&id=<?php echo $id; ?>" data-toggle="modal" title="Editar">
 						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

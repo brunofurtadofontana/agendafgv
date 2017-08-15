@@ -261,7 +261,7 @@ function deletCursos(){
 function addCat(){
 	$id=$_GET['id'];
 	$nome = htmlspecialchars(trim($_POST['nome']));
-	$nome = "Atividade ".$nome;
+	//$nome = "Atividade ".$nome;
 		$res = mysql_query("INSERT INTO categoria(categoria_nome) VALUES( '$nome')")or die(mysql_error());
 	if($res){
 		echo header("location:../home.php?go=categorias&sts=1");
@@ -279,7 +279,7 @@ function deletCat(){
 function editCat(){
 	$id=$_GET['id'];
 	$nome = htmlspecialchars(trim($_POST['nome']));
-	$nome = "Atividade ".$nome;
+	//$nome = "Atividade ".$nome;
 	$res = mysql_query("UPDATE categoria SET   categoria_nome ='$nome'
 											WHERE categoria_id = '$id'")or die(mysql_error());
 	if($res){

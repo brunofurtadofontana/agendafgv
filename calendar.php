@@ -988,17 +988,16 @@ endforeach;
 				  <div class="form-group">
 					<label for="color" class="col-sm-2 control-label">Cor</label>
 					<div class="col-sm-10">
-					  <select name="color" class="form-control" id="color" >
-						  <option value="">Choose</option>
-						  <option style="color:#0071c5;" value="#0071c5">&#9724; Azul escuro</option>
-						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquesa</option>
-						  <option style="color:#228B22;" value="#228B22">&#9724; Verde</option>						  
-						  <option style="color:#FFD700;" value="#FFD700">&#9724; Amarelo</option>
-						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Laranja</option>
-						  <option style="color:#FF0000;" value="#FF0000">&#9724; Vermelho</option>
-						  <option style="color:#000;" value="#000">&#9724; Preto</option>
-						  
-						</select>
+					   <select name="color" class="form-control" id="color" style="margin-bottom: 10px;" disabled>
+						  <option value="">Escolha uma cor</option>
+						  <option style="color:#4169E1;" value="#4169E1" <?php if($color=='#4169E1')echo 'selected' ?>>&#9724; Azul Escuro</option>
+						  <option style="color:#00CED1;" value="#00CED1" <?php if($color=='#00CED1')echo 'selected' ?>>&#9724; Turquesa</option>
+						  <option style="color:#3CB371;" value="#3CB371" <?php if($color=='#3CB371')echo 'selected' ?>>&#9724; Verde</option>
+						  <option style="color:#FFD700;" value="#FFD700" <?php if($color=='#FFD700')echo 'selected' ?>>&#9724; Amarelo</option>
+						  <option style="color:#D2691E;" value="#D2691E" <?php if($color=='#D2691E')echo 'selected' ?>>&#9724; Laranja</option>
+						  <option style="color:#FF6347;" value="#FF6347" <?php if($color=='#FF6347')echo 'selected' ?>>&#9724; Vermelho</option>
+						  <option style="color:#ccdde5;" value="#ccdde5" <?php if($color=='#ccdde5')echo 'selected' ?>>&#9724; Preto</option>			  
+					</select>
 					</div>
 				  </div>
 				    <div class="form-group"> 
